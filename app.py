@@ -10,24 +10,25 @@ def index():
     container_info = []
 
     for container in containers:
-        status = container.status
-        if status == 'running':
-            color = "#50FA7B"  # Green for running
-        elif status == 'created':
-            color = "#6272A4"  # Blueish for created
-        elif status == 'exited':
-            color = "#FF5555"  # Red for stopped
-        elif status == 'unhealthy':
-            color = "#F1FA8C"  # Yellow for unhealthy
-        else:
-            color = "#F1FA8C"  # Yellow for anything else
-        
-        container_info.append({
-            'name': container.name,
-            'id': container.short_id,
-            'status': status,
-            'color': color
-        })
+        if "mc-server" in container.name:
+            status = container.status
+            if status == 'running':
+                color = "#50FA7B"  # Green for running
+            elif status == 'created':
+                color = "#6272A4"  # Blueish for created
+            elif status == 'exited':
+                color = "#FF5555"  # Red for stopped
+            elif status == 'unhealthy':
+                color = "#F1FA8C"  # Yellow for unhealthy
+            else:
+                color = "#F1FA8C"  # Yellow for anything else
+            
+            container_info.append({
+                'name': container.name,
+                'id': container.short_id,
+                'status': status,
+                'color': color
+            })
 
     return render_template('index.html', containers=container_info)
 
